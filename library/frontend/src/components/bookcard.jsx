@@ -2,7 +2,9 @@ function BookCard({
   title,
   author,
   category,
-  image
+  image,
+  borrowed,
+  onBorrow
 }) {
   return (
     <div className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
@@ -27,9 +29,23 @@ function BookCard({
           {category}
         </p>
 
-        <button className="w-full mt-4 bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+        <button
+          onClick={onBorrow}
+          disabled={borrowed}
+          className={`w-full mt-4 py-2 rounded-lg text-white transition
 
-          Borrow
+          ${
+            borrowed
+              ? "bg-green-600"
+              : "bg-blue-700 hover:bg-blue-600"
+          }`}
+        >
+
+          {
+            borrowed
+              ? "Borrowed"
+              : "Borrow"
+          }
 
         </button>
 
