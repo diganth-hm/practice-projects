@@ -1,17 +1,18 @@
 const express = require("express");
 const app = express();
 const http = require("http");
-const [email,pass]=req.body;
+app.use(express.json());
+
 app.post("/signup",(req,res)=>
 {
- 
+ const [email,pass]=req.body;
  if (email=="" || pass == "")
  {
-    res.status(400);
+  return   res.status(400);
     console.log("bad request")
 
  }
- if(email)
+ 
 console.log("server created");
 
 });
