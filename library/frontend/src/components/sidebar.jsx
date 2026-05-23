@@ -7,7 +7,7 @@ function Sidebar()
            <div className="flex mt-10 ml-12 mb-10">
             <LibraryBig size={45}/>
             <h1 className="ml-5 text-3xl font-bold">LibraryMS</h1>
-            </div>
+            </div> 
             </div>   
 
          <button className="w-full p-10">

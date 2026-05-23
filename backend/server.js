@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
-const http = require("http");
+const cors = require("cors");
+
 app.use(express.json());
+app.use(cors());
 
 app.post("/signup",(req,res)=>
 {
+    console.log("working");
  const {email,pass}=req.body;
+ 
  if (email=="" || pass == "")
  {
         console.log("bad request")
@@ -13,12 +17,13 @@ app.post("/signup",(req,res)=>
     return   res.status(400).send("Fields cannot be empty");
 
  }
+ if(email != "" && pass !=""){
  
 return res.status(201).send("Signup successful");
-
+ }
 });
 
-
+console.log("not working");
 //Login page
 app.post("/login",(req,res)=>
 {
@@ -35,7 +40,7 @@ app.post("/login",(req,res)=>
     return res.status(201).send("Login sucessfull");
    
     }
-    if(email !="diagnthhm714@gmail.com" && pass !="12345678")
+    if(email !="diagnthhm714@gmail.com" || pass !="12345678")
     {
          console.log("bad reaquest");
         return res.status(401).send("invalid eamil or password");

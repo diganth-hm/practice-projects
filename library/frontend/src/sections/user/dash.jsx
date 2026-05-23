@@ -43,26 +43,65 @@ function User() {
 
   const [search, setSearch] = useState("");
 
-  const filteredBooks = books.filter(
-    (book) =>
-      book.title
-        .toLowerCase()
-        .includes(
-          search.toLowerCase()
-        ) ||
-
-      book.author
-        .toLowerCase()
-        .includes(
-          search.toLowerCase()
-        ) ||
-
-      book.category
-        .toLowerCase()
-        .includes(
-          search.toLowerCase()
-        )
+  const [selectedCategory, setSelectedCategory] = useState(
+    "All Categories"
   );
+
+  const [borrowedBooks, setBorrowedBooks] = useState([]);
+
+  const filteredBooks = books.filter(
+    (book) => {
+
+      const matchesSearch =
+        book.title
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+
+        book.author
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+
+        book.category
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
+
+      const matchesCategory =
+        selectedCategory ===
+        "All Categories"
+
+          ? true
+
+          : book.category ===
+            selectedCategory;
+
+      return (
+        matchesSearch &&
+        matchesCategory
+      );
+    }
+  );
+
+  const handleBorrow = (title) => {
+
+    if (
+      borrowedBooks.includes(
+        title
+      )
+    ) {
+      return;
+    }
+
+    setBorrowedBooks([
+      ...borrowedBooks,
+      title
+    ]);
+  };
 
   return (
     <div className="flex">
@@ -85,7 +124,15 @@ function User() {
 
           <div className="flex gap-5 mb-8">
 
-            <select className="bg-white p-3 rounded-lg border w-64">
+            <select
+              value={selectedCategory}
+              onChange={(e) =>
+                setSelectedCategory(
+                  e.target.value
+                )
+              }
+              className="bg-white p-3 rounded-lg border w-64"
+            >
 
               <option>
                 All Categories
@@ -135,6 +182,18 @@ function User() {
                   author={book.author}
                   category={book.category}
                   image={book.image}
+
+                  borrowed={
+                    borrowedBooks.includes(
+                      book.title
+                    )
+                  }
+
+                  onBorrow={() =>
+                    handleBorrow(
+                      book.title
+                    )
+                  }
                 />
               )
             )}

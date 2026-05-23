@@ -18,7 +18,7 @@ function Navbar() {
         />
       </div>
 
-<div calssName="flex gap-5">
+<div className="flex gap-5">
       <button className="p-2 hover:bg-gray-200 rounded-full transition">
         <Bell size={28} />
       </button>
